@@ -1,0 +1,14 @@
+# Whether to enable Redis repositories.
+spring:
+  data:
+    redis:
+      ssl:
+        enabled: false
+      port: 6379
+      host: localhost
+
+
+logging:
+  level:
+    io.lettuce.core: TRACE
+    org.springframework.data.redis: DEBUG
