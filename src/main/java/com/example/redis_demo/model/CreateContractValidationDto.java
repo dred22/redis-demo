@@ -1,6 +1,4 @@
 package com.example.redis_demo.model;
 
-import java.util.UUID;
-
-public record CreateContractValidationDto(String contractNumber, UUID user, String company, int ttl) {
+public record CreateContractValidationDto(String contractNumber, Integer userId, String company, int ttl) {
 }
