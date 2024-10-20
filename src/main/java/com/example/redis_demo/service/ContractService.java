@@ -28,6 +28,7 @@ public class ContractService {
         contractValidationEntity.setContractNumber(contractDto.contractNumber());
         contractValidationEntity.setUserId(contractDto.user());
         contractValidationEntity.setCompany(contractDto.company());
+        contractValidationEntity.setTtl(contractDto.ttl());
         return validationRepository.save(contractValidationEntity);
     }
 
