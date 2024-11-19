@@ -1,0 +1,6 @@
+# Whether to enable Redis repositories.
+spring:
+  data:
+    redis:
+      port: 6370
+      host: localhost
