@@ -1,0 +1,90 @@
+= Validation Service API Documentation
+Author Name <author@example.com>
+:toc:
+:toclevels: 2
+:sectnums:
+:doctype: book
+:source-highlighter: highlightjs
+
+== Introduction
+
+This project is designed to create validation records for contracts by users. Each validation record is stored for a limited time and then automatically deleted. For this purpose, the Redis database is used, which supports the `TTL` (Time-to-Live) mechanism, allowing records to be automatically deleted after a set amount of time.
+
+The project is built using Spring Boot and includes three main API endpoints:
+- Retrieve all validation records
+- Retrieve a specific validation record by contract and user ID
+- Create a new validation record
+
+For integration testing, the project uses **embedded Redis**, which allows starting and stopping an in-memory Redis server to test the application without requiring an external Redis instance.
+
+== API Endpoints
+
+=== Retrieve All Contracts
+
+Returns a list of all contract validation records.
+
+HTTP REQUEST
+include::{snippets}/validation/get_all/http-request.adoc[]
+RESPONSE
+include::{snippets}/validation/get_all/http-response.adoc[]
+
+=== Retrieve a Specific Contract
+
+Returns the validation record for a specific contract and user.
+
+*Path parameters*:
+
+include::{snippets}/validation/get_by_id/path-parameters.adoc[]
+
+*Query parameters*:
+
+include::{snippets}/validation/get_by_id/query-parameters.adoc[]
+
+HTTP REQUEST
+include::{snippets}/validation/get_by_id/http-request.adoc[]
+CURL
+include::{snippets}/validation/get_by_id/curl-request.adoc[]
+RESPONSE
+include::{snippets}/validation/get_by_id/http-response.adoc[]
+*Response body fields*:
+
+include::{snippets}/validation/get_by_id/response-fields.adoc[]
+
+=== Create a New Contract
+
+Creates a new contract validation record and returns the created record.
+
+*Request body fields*:
+
+include::{snippets}/validation/create/request-fields.adoc[]
+
+HTTP
+include::{snippets}/validation/create/http-request.adoc[]
+CURL
+include::{snippets}/validation/create/curl-request.adoc[]
+
+RESPONSE
+include::{snippets}/validation/create/http-response.adoc[]
+*Response body fields*:
+
+include::{snippets}/validation/get_by_id/response-fields.adoc[]
+
+== Embedded Redis for Integration Testing
+
+During integration testing, the project uses an embedded Redis server. This ensures that tests are isolated and do not depend on external services. Below is the configuration class used to set up and tear down the embedded Redis server:
+
+[source,java]
+----
+include::../../src/test/java/com/example/redis_demo/config/TestRedisConfiguration.java[tags=class]
+----
+
+*Explanation*:
+
+- The class `TestRedisConfiguration` starts an embedded Redis server at the port specified by the `RedisProperties` during the test setup (`@PostConstruct`).
+- The Redis server is stopped when the tests are completed using the `@PreDestroy` method, ensuring clean teardown after the tests.
+
+== Conclusion
+
+This project supports the creation, retrieval, and deletion of contract validation records in Redis. All API methods are documented using Spring REST Docs, which integrates with Asciidoctor to generate this documentation.
+
+The embedded Redis server ensures that integration tests are fully self-contained and do not rely on external resources.

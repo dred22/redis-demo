@@ -8,6 +8,7 @@ import redis.embedded.RedisServer;
 
 import java.io.IOException;
 
+// tag::class[]
 @TestConfiguration
 public class TestRedisConfiguration {
 
@@ -27,3 +28,4 @@ public class TestRedisConfiguration {
         redisServer.stop();
     }
 }
+// end::class[]
