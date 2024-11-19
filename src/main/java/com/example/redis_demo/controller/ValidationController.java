@@ -3,7 +3,7 @@ package com.example.redis_demo.controller;
 
 import com.example.redis_demo.entity.ContractValidationEntity;
 import com.example.redis_demo.model.CreateContractValidationDto;
-import com.example.redis_demo.service.ContractService;
+import com.example.redis_demo.service.ValidationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -16,23 +16,23 @@ import java.util.List;
 @Slf4j
 public class ValidationController {
 
-    private final ContractService contractService;
+    private final ValidationService validationService;
 
     @GetMapping
-    List<ContractValidationEntity> getContracts(){
+    List<ContractValidationEntity> getValidations(){
         log.info("Get all");
-        return contractService.getAll();
+        return validationService.getAll();
     }
 
     @GetMapping("/{id}")
-    ContractValidationEntity getContract(@PathVariable("id") String contractNumber){
+    ContractValidationEntity getValidation(@PathVariable("id") String contractNumber, @RequestParam Integer userId){
         log.info("Get contract {}", contractNumber);
-        return contractService.getContract(contractNumber);
+        return validationService.getValidation(contractNumber, userId);
     }
 
     @PostMapping
     ContractValidationEntity save(@RequestBody CreateContractValidationDto contractDto){
         log.info("Create {}", contractDto);
-        return contractService.save(contractDto);
+        return validationService.save(contractDto);
     }
 }

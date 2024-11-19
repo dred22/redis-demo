@@ -5,6 +5,4 @@ import com.example.redis_demo.entity.CustomKey;
 import org.springframework.data.repository.ListCrudRepository;
 
 public interface ValidationRepository extends ListCrudRepository<ContractValidationEntity, CustomKey> {
-
-    ContractValidationEntity findByContractNumber(String contractNumber);
 }
