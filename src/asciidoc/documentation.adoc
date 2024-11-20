@@ -54,20 +54,44 @@ include::{snippets}/validation/get_by_id/response-fields.adoc[]
 
 Creates a new contract validation record and returns the created record.
 
-*Request body fields*:
-
-include::{snippets}/validation/create/request-fields.adoc[]
-
 HTTP
 include::{snippets}/validation/create/http-request.adoc[]
 CURL
 include::{snippets}/validation/create/curl-request.adoc[]
+
+*Request body fields*:
+include::{snippets}/validation/create/request-fields.adoc[]
 
 RESPONSE
 include::{snippets}/validation/create/http-response.adoc[]
 *Response body fields*:
 
 include::{snippets}/validation/get_by_id/response-fields.adoc[]
+
+==== Validation Create Flow
+
+This diagram shows the sequence of interactions for creating a validation record.
+
+[plantuml,validation-create-flow,svg]
+----
+@startuml
+title Validation Create Flow
+
+actor "Web App" as webapp
+
+participant "ValidationController" as controller
+participant "ValidationService" as service
+database "Redis" as redis
+
+webapp -> controller: POST /validations
+controller -> service: save(validation)
+service -> redis: save
+redis --> service: ok
+service --> controller: ok
+webapp <-- controller: 201 Created
+
+@enduml
+----
 
 == Embedded Redis for Integration Testing
 
